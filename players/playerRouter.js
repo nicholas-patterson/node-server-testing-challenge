@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-
 const Players = require("./player-helpers");
 
 router.get("/", (req, res) => {
@@ -17,12 +16,13 @@ router.get("/:id", (req, res) => {
   const id = req.params.id;
   Players.findById(id)
     .then(player => {
+      console.log("PLAYER IN ROUTER", player);
       if (player) {
-        res.status(200).json(player);
-      } else {
         res
           .status(400)
           .json({ Error: "Server could not find player with the given ID" });
+      } else {
+        res.status(200).json(player);
       }
     })
     .catch(error => {
