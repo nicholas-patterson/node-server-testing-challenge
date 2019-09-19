@@ -17,7 +17,13 @@ router.get("/:id", (req, res) => {
   const id = req.params.id;
   Players.findById(id)
     .then(player => {
-      res.status(200).json(player);
+      if (player) {
+        res.status(200).json(player);
+      } else {
+        res
+          .status(400)
+          .json({ Error: "Server could not find player with the given ID" });
+      }
     })
     .catch(error => {
       res.status(500).json({ error: "Server could not get list of players" });

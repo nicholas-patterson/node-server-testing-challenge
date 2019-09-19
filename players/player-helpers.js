@@ -19,7 +19,7 @@ function findById(id) {
 
 function add(newPlayer) {
   return db("players")
-    .insert(newPlayer)
+    .insert(newPlayer, "id")
     .then(([id]) => {
       return findById(id);
     });
